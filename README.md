@@ -360,6 +360,9 @@ public class ExpressionTree {
                                                            
 
 task6 :
+    
+    
+    
  import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -408,7 +411,17 @@ public class SpellChecker {
         }
     }
 }
+    
+    
+    
+    
 task 7 :
+    
+    
+    
+    
+    
+    
     import java.util.*;
 
 public class HeapSort {
