@@ -65,3 +65,88 @@ public class Main {
         return true;
     }
 }
+                                                            
+                                                            
+                                                            
+                                                            
+                                       
+                                                            
+task3 :
+public class TwoColorDoubleStack<ItemType> {
+    private static final int DEFAULT_CAPACITY = 10;
+    private int capacity;
+    private int redTop;
+    private int blueTop;
+    private ItemType[] array;
+
+    public TwoColorDoubleStack() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    public TwoColorDoubleStack(int capacity) {
+        this.capacity = capacity;
+        this.redTop = -1;
+        this.blueTop = capacity;
+        this.array = (ItemType[]) new Object[capacity];
+    }
+
+    public void pushRed(ItemType item) {
+        if (isFull()) {
+            throw new IllegalStateException("Stack is full");
+        }
+        array[++redTop] = item;
+    }
+
+    public void pushBlue(ItemType item) {
+        if (isFull()) {
+            throw new IllegalStateException("Stack is full");
+        }
+        array[--blueTop] = item;
+    }
+
+    public ItemType popRed() {
+        if (isRedEmpty()) {
+            throw new IllegalStateException("Red stack is empty");
+        }
+        return array[redTop--];
+    }
+
+    public ItemType popBlue() {
+        if (isBlueEmpty()) {
+            throw new IllegalStateException("Blue stack is empty");
+        }
+        return array[blueTop++];
+    }
+
+    public boolean isRedEmpty() {
+        return redTop == -1;
+    }
+
+    public boolean isBlueEmpty() {
+        return blueTop == capacity;
+    }
+
+    public boolean isFull() {
+        return redTop + 1 == blueTop;
+    }
+
+    public static void main(String[] args) {
+        TwoColorDoubleStack<Integer> stack = new TwoColorDoubleStack<>(5);
+
+        stack.pushRed(1);
+        stack.pushBlue(2);
+        stack.pushRed(3);
+        stack.pushBlue(4);
+
+        System.out.println(stack.popRed());   
+        System.out.println(stack.popBlue());  
+        System.out.println(stack.popRed());   
+        System.out.println(stack.popBlue());  
+
+       
+        stack.popRed();   
+    }
+}                                                           
+                                                            
+                                                            
+                                                            
