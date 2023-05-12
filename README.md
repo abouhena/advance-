@@ -1,70 +1,74 @@
 # advance- 
 
-
-
-task1:
-
-
+Task1:
 
 
 import java.util.*;
 
-public class RemoveDuplicates {
-    public static char[] removeDuplicates(char[] array) {
+public class RemDuplicate {
+    public static char[] remDuplicates(char[] array) {
         // Create a HashSet to store unique characters
         Set<Character> hashSet = new HashSet<>();
-        
+
         // Create a new character array to store unique characters
-        char[] newArray = new char[array.length];
-        int index = 0;
-        
+        char[] n1Array = new char[array.length];
+        int indexOfArray = 0;
+
         // Iterate over the input array
-        for (char ch : array) {
+        for (char ff : array) {
             // Check if the character already exists in the HashSet
-            if (!hashSet.contains(ch)) {
+            if (!hashSet.contains(ff)) {
                 // If not, add it to the HashSet and the new array
-                hashSet.add(ch);
-                newArray[index] = ch;
-                index++;
+                hashSet.add(ff);
+                n1Array[indexOfArray] = ff;
+                indexOfArray++;
             }
         }
-        
+
         // Return a new array containing only the unique characters
-        return Arrays.copyOf(newArray, index);
+        return Arrays.copyOf(n1Array, indexOfArray);
+    }
+
+    public static void main(String[] args) {
+        char[] printArray = { 'a', 'b', 'c', 'd', 'a', 'e', 'f', 'c', 'b', 'd', 'e', 'f' };
+        System.out.println(Arrays.toString(remDuplicates(printArray)));
     }
 }
+
+
+
 
     
     task2:
     
-    
-    import java.util.Arrays;
+ 
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] array1 = { 2, 5, 7, 4, 3, 8 };
-        int[] array2 = { 7, 2, 5, 4, 8, 3 };
+        int[] arr1 = { 2, 5, 7, 4, 3, 8 };
+        int[] arr2 = { 7, 2, 5, 4, 8, 3 };
         
-        if (hasSameElements(array1, array2)) {
-            System.out.println("The arrays have the same set of elements.");
+        if (hasSameElements(arr1, arr2)) {
+            System.out.println("The arrays include the same set of elements.");
         } else {
-            System.out.println("The arrays do not have the same set of elements.");
+            System.out.println("The arrays do not include the same set of elements.");
         }
     }
     
-    public static boolean hasSameElements(int[] array1, int[] array2) {
+    public static boolean hasSameElements(int[] arrayOf1, int[] arrayOf2) {
         // Check if the arrays have the same length
-        if (array1.length != array2.length) {
+        if (arrayOf1.length != arrayOf2.length) {
             return false;
         }
         
         // Sort the arrays
-        Arrays.sort(array1);
-        Arrays.sort(array2);
+        Arrays.sort(arrayOf1);
+        Arrays.sort(arrayOf2);
         
         // Check if the elements are the same
-        for (int i = 0; i < array1.length; i++) {
-            if (array1[i] != array2[i]) {
+        for (int c = 0; c < arrayOf1.length; c++) {
+            if (arrayOf1[c] != arrayOf2[c]) {
                 return false;
             }
         }
@@ -72,6 +76,7 @@ public class Main {
         return true;
     }
 }
+
                                                             
                                                             
                                                             
@@ -80,66 +85,67 @@ public class Main {
                                                             
 task3 :
                                                             
-public class TwoColorDoubleStack<ItemType> {
-    private static final int DEFAULT_CAPACITY = 10;
-    private int capacity;
-    private int redTop;
-    private int blueTop;
-    private ItemType[] array;
 
-    public TwoColorDoubleStack() {
+      public class TwoColourDoubleStack<ItemType> {
+    private static final int DEFAULT_CAPACITY = 10;
+    private int capacityOfArray;
+    private int topInRed;
+    private int topInBlue;
+    private ItemType[] arrayS1;
+
+    public TwoColourDoubleStack() {
         this(DEFAULT_CAPACITY);
     }
 
-    public TwoColorDoubleStack(int capacity) {
-        this.capacity = capacity;
-        this.redTop = -1;
-        this.blueTop = capacity;
-        this.array = (ItemType[]) new Object[capacity];
+    public TwoColourDoubleStack(int desiredCap) {
+        this.capacityOfArray = desiredCap;
+        this.topInRed = -1;
+        this.topInBlue = desiredCap;
+        this.arrayS1 = (ItemType[]) new Object[desiredCap];
     }
 
-    public void pushRed(ItemType item) {
-        if (isFull()) {
-            throw new IllegalStateException("Stack is full");
+    public void pushRed(ItemType element1) {
+        if (isStacked()) {
+            throw new IllegalStateException("Stack full");
         }
-        array[++redTop] = item;
+        arrayS1[++topInRed] = element1;
     }
 
-    public void pushBlue(ItemType item) {
-        if (isFull()) {
-            throw new IllegalStateException("Stack is full");
+    public void pushBlue(ItemType element1) {
+        if (isStacked()) {
+            throw new IllegalStateException("Stack full");
         }
-        array[--blueTop] = item;
+        arrayS1[--topInBlue] = element1;
     }
 
     public ItemType popRed() {
-        if (isRedEmpty()) {
-            throw new IllegalStateException("Red stack is empty");
+        if (isRedVacant()) {
+            throw new IllegalStateException("Red stack empty");
         }
-        return array[redTop--];
-    }
+        return arrayS1[topInRed--];
+}
 
     public ItemType popBlue() {
-        if (isBlueEmpty()) {
-            throw new IllegalStateException("Blue stack is empty");
+        if (isBlueVacant()) {
+            throw new IllegalStateException("Blue stack empty");
         }
-        return array[blueTop++];
+        return arrayS1[topInBlue++];
     }
 
-    public boolean isRedEmpty() {
-        return redTop == -1;
+    public boolean isRedVacant() {
+        return topInRed == -1;
     }
 
-    public boolean isBlueEmpty() {
-        return blueTop == capacity;
+    public boolean isBlueVacant() {
+        return topInBlue == capacityOfArray;
     }
 
-    public boolean isFull() {
-        return redTop + 1 == blueTop;
+    public boolean isStacked() {
+        return topInRed + 1 == topInBlue;
     }
 
     public static void main(String[] args) {
-        TwoColorDoubleStack<Integer> stack = new TwoColorDoubleStack<>(5);
+        TwoColourDoubleStack<Integer> stack = new TwoColourDoubleStack<>(5);
 
         stack.pushRed(1);
         stack.pushBlue(2);
@@ -154,18 +160,23 @@ public class TwoColorDoubleStack<ItemType> {
        
         stack.popRed();   
     }
-}                                                           
+}
+
+    
                                                             
 
     
     task4 :
-    import java.util.ArrayList;
+ 
+    
+    
+   import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CPUScheduler {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner insert = new Scanner(System.in);
 
         // Input for job 1
         System.out.println("Enter job 1 priority:");
@@ -195,8 +206,7 @@ public class CPUScheduler {
 
         sc.close();
     }
-
-    public List<String> scheduleJobs(List<Job> jobs) {
+public List<String> scheduleJobs(List<Job> jobs) {
         List<String> schedule = new ArrayList<>();
         int timeSlice = 0;
 
@@ -233,7 +243,6 @@ public class CPUScheduler {
                 jobToRun = job;
             }
         }
-
         // Shortest remaining time first
         for (Job job : jobs) {
             if (job.getDuration() < jobToRun.getDuration()) {
@@ -272,17 +281,22 @@ public class CPUScheduler {
         }
     }
 }
+
+ 
+    
+    
                                                            
      task5:
-import java.util.Stack;
+
+  import java.util.Stack;
 
 public class ExpressionTree {
     private Node root;
 
-    public ExpressionTree(String expression) {
+    public ExpressionTree(String arithmeticExp) {
         Stack<Node> stack = new Stack<>();
-        for (int i = 0; i < expression.length(); i++) {
-            char c = expression.charAt(i);
+        for (int i = 0; i < arithmeticExp.length(); i++) {
+            char c = arithmeticExp.charAt(i);
             if (c == '(') {
                 continue;
             } else if (c == '+' || c == '-' || c == '*' || c == '/') {
@@ -292,8 +306,8 @@ public class ExpressionTree {
                 stack.push(operator);
             } else if (Character.isDigit(c)) {
                 int num = 0;
-                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-                    num = num * 10 + expression.charAt(i) - '0';
+                while (i < arithmeticExp.length() && Character.isDigit(arithmeticExp.charAt(i))) {
+                    num = num * 10 + arithmeticExp.charAt(i) - '0';
                     i++;
                 }
                 i--;
@@ -304,17 +318,17 @@ public class ExpressionTree {
         root = stack.pop();
     }
 
-    public void printInOrder() {
-        printInOrder(root);
+    public void printInSequence() {
+        printInSequence(root);
     }
 
-    private void printInOrder(Node node) {
+    private void printInSequence(Node node) {
         if (node == null) {
             return;
         }
-        printInOrder(node.getLeft());
+        printInSequence(node.getLeft());
         System.out.print(node.getValue() + " ");
-        printInOrder(node.getRight());
+        printInSequence(node.getRight());
     }
 
     private static class Node {
@@ -352,126 +366,122 @@ public class ExpressionTree {
 
     public static void main(String[] args) {
         ExpressionTree tree = new ExpressionTree("(5+3)*(8-2)");
-        tree.printInOrder();
+        tree.printInSequence();
     }
 }
-
+ 
+                                                           
                                                            
                                                            
 
 task6 :
     
-    
-    
- import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays; 
+import java.util.HashSet; 
+import java.util.List; 
 import java.util.Set;
 
-public class SpellChecker {
-    private Set<String> lexicon;
+public class SpellChecker { private Set lexicon;
 
-    public SpellChecker(Set<String> lexicon) {
-        this.lexicon = lexicon;
-    }
+public SpellChecker(Set<String> lexicon) {
+    this.lexicon = lexicon;
+}
 
-    public List<String> check(String s) {
-        List<String> results = new ArrayList<>();
-        if (lexicon.contains(s)) {
-            results.add(s);
-        } else {
-            for (String word : lexicon) {
-                if (isSimilar(s, word)) {
-                    results.add(word);
-                }
+public List<String> scan(String s) {
+    List<String> results = new ArrayList<>();
+    if (lexicon.contains(s)) {
+        results.add(s);
+    } else {
+        for (String word : lexicon) {
+            if (isEquivalent(s, word)) {
+                results.add(word);
             }
         }
-        return results;
     }
+    return results;
+}
 
-    private boolean isSimilar(String s1, String s2) {
-      
-        return s1.length() == s2.length();
-    }
+private boolean isEquivalent(String a1, String a2) {
+  
+    return a1.length() == a2.length();
+}
 
-    public static void main(String[] args) {
-        Set<String> lexicon = new HashSet<>(Arrays.asList("hello", "world", "goodbye", "friend"));
-        SpellChecker spellChecker = new SpellChecker(lexicon);
+public static void main(String[] args) {
+    Set<String> lexicon = new HashSet<>(Arrays.asList("hello", "world", "goodbye", "friend"));
+    SpellChecker spellChecker = new SpellChecker(lexicon);
 
-        String input = "helllo";
-        List<String> suggestions = spellChecker.check(input);
-        if (suggestions.isEmpty()) {
-            System.out.println("'" + input + "' is a correct spelling");
-        } else {
-            System.out.println("'" + input + "' is not a correct spelling. Did you mean:");
-            for (String suggestion : suggestions) {
-                System.out.println("  - " + suggestion);
-            }
+    String input = "helllo";
+    List<String> suggestions = spellChecker.scan(input);
+    if (suggestions.isEmpty()) {
+        System.out.println("'" + input + "' is a correct spelling");
+    } else {
+        System.out.println("'" + input + "' is not a correct spelling. Did you mean:");
+        for (String suggestion : suggestions) {
+            System.out.println("  - " + suggestion);
         }
     }
 }
-    
-    
+}
+
     
     
 task 7 :
     
     
-    
-    
-    
-    
-    import java.util.*;
+import java.util.*;
 
 public class HeapSort {
     public static void main(String[] args) {
         int[] arr = { 12, 11, 13, 5, 6, 7 };
         System.out.println("Original array: " + Arrays.toString(arr));
-        heapSort(arr);
+        heapSorting(arr);
         System.out.println("Sorted array: " + Arrays.toString(arr));
     }
     
-    public static void heapSort(int[] arr) {
-        int n = arr.length;
+    public static void heapSorting(int[] array1) {
+        int n = array1.length;
         
         for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(arr, n, i);
+            heapify(array1, n, i);
         
         for (int i = n - 1; i >= 0; i--) {
             
-            int temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
+            int temp = array1[0];
+            array1[0] = array1[i];
+            array1[i] = temp;
             
-            heapify(arr, i, 0);
+            heapify(array1, i, 0);
         }
     }
     
-    public static void heapify(int[] arr, int n, int i) {
-        int smallest = i;  
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+    public static void heapify(int[] arr, int x, int y) {
+        int smallest = y;  
+        int leftChild = 2 * y + 1;
+        int rightChild = 2 * y + 2;
        
-        if (left < n && arr[left] < arr[smallest])
-            smallest = left;
+        if (leftChild < x && arr[leftChild] < arr[smallest])
+            smallest = leftChild;
 
-        if (right < n && arr[right] < arr[smallest])
-            smallest = right;
-        
-        if (smallest != i) {
-            int temp = arr[i];
-            arr[i] = arr[smallest];
+        if (rightChild < x && arr[rightChild] < arr[smallest])
+            smallest = rightChild;
+if (smallest != y) {
+            int temp = arr[y];
+            arr[y] = arr[smallest];
             arr[smallest] = temp;
             
-            heapify(arr, n, smallest);
+            heapify(arr, x, smallest);
         }
     }
 }
+    
+    
+
+
  
     task 8:
     
-    import java.util.*;
+   import java.util.*;
 
 public class RoutingTableBuilder {
 
@@ -507,7 +517,6 @@ public class RoutingTableBuilder {
         Map<String, Integer> distances = new HashMap<>();
         Set<String> visited = new HashSet<>();
 
-        
         for (String node : connectivity.keySet()) {
             distances.put(node, Integer.MAX_VALUE);
         }
@@ -534,5 +543,4 @@ public class RoutingTableBuilder {
         return routingTable;
     }
 }
-
-                                                            
+                       
